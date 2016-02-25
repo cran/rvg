@@ -46,7 +46,7 @@ rvg_tracer_off <- function(){
 #'
 #' @export
 send_tooltip = function( ids, tooltips ){
-
+  #.Deprecated("set_attr")
 	stopifnot( .Device == "dsvg_device" )
 	if( is.factor(tooltips) )
 		tooltips = as.character( tooltips )
@@ -69,6 +69,7 @@ send_tooltip = function( ids, tooltips ){
 #'
 #' @export
 send_click = function( ids, clicks ){
+  #.Deprecated("set_attr")
 	stopifnot( .Device == "dsvg_device" )
 	if( is.factor(clicks) )
 		clicks = as.character( clicks )
@@ -92,6 +93,7 @@ send_click = function( ids, clicks ){
 #'
 #' @export
 set_data_id = function( ids, data_id ){
+  #.Deprecated("set_attr")
 	stopifnot( .Device == "dsvg_device" )
 	if( is.factor(data_id) )
 		data_id = as.character( data_id )
@@ -105,6 +107,42 @@ set_data_id = function( ids, data_id ){
 
 	invisible()
 }
+
+#' @title set attributes to graphical elements
+#'
+#' @description set attributes with javascript instructions
+#' to graphical elements.
+#' @param ids integer vector of graphical elements identifiers (returned by
+#' \code{\link{rvg_tracer_off}}).
+#' @param attribute name of the attribute to set.
+#' @param str values to set for the attribute.
+#'
+#' @export
+set_attr = function( ids, attribute, str ){
+  stopifnot( .Device == "dsvg_device" )
+  if( is.factor(str) )
+    str = as.character( str )
+  if( is.factor(attribute) )
+    str = as.character( attribute )
+
+  stopifnot( is.character(attribute) )
+  stopifnot( is.character(str) )
+  stopifnot( is.numeric(ids) )
+  stopifnot( length(ids) == length(str) )
+  stopifnot( length(attribute) == 1 )
+
+  if( any( grepl(pattern = "'", str) ) )
+    stop("str cannot contain single quote \"'\".")
+  dev_num <- as.integer(dev.cur()-1L)
+  add_attribute(dn = dev_num,
+               id = as.integer( ids ),
+               str = str,
+               name = attribute
+               )
+
+  invisible()
+}
+
 
 #' @importFrom utils zip
 #' @importFrom R.utils getAbsolutePath

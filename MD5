@@ -1,7 +1,7 @@
-66849342f1e224e40beb7c608dc76bbf *DESCRIPTION
-ec5c66299eaa8a6f433897c5d3b93578 *NAMESPACE
-08fab6e48426ea0e7b959755c29c0de3 *NEWS
-aa73404c46052b58ba3ad9cc86859784 *R/RcppExports.R
+e85baa53c14c497a0f8699019b686d0f *DESCRIPTION
+dbcb2a6ab5ba67e54a178cbaaa61b8dc *NAMESPACE
+d100eecb526f50a3dfef27fcaa9f47b0 *NEWS
+e744bebcef0c241e5a93263909c44143 *R/RcppExports.R
 29d518a77e102dd90d5dc56f05107492 *R/dml_docx.R
 a733d5bcde7555d44ce382e7e06bf611 *R/dml_pptx.R
 9495d953f94c137c1a6ab9219c907041 *R/dsvg.R
@@ -12,7 +12,7 @@ b54cd1c3c921b35561653b426ce87f19 *R/interactivePolygonGrob.R
 b7f007413c3fb1317398c3b6751ebe61 *R/interactiveRectGrob.R
 355a3e4fe3601fd34828800b30e6fd0c *R/interactiveSegmentsGrob.R
 965d2ea5ff92f12bf046b2ebbf0d6b63 *R/interactiveTextGrob.R
-c1c67a175c9782e404e95a3c66bba9ad *R/utils.R
+c8c3280715d15ace3b7ae10bb2d29249 *R/utils.R
 85e3ab2568f71143cf7956af7fc266e1 *R/write_docx.R
 b09c6aaa6fb0dfb2c72fcdcf8d0d229c *R/write_pptx.R
 984207a0eac05fbefe475bedba447f1e *cleanup
@@ -38,10 +38,11 @@ a85ff3b60b9cb999ed5370c7d2819f57 *man/rvg_tracer_off.Rd
 b6ce1c2e3a16c4d3b221df46d8ccdbef *man/rvg_tracer_on.Rd
 d2a30ecb4bf553d402cbf87747170329 *man/send_click.Rd
 c5abd7c9df547126b9cba3319eb0dfeb *man/send_tooltip.Rd
+00df94f67cbc2c0c2e1a2831794cce03 *man/set_attr.Rd
 9bd947e122b8a777dcacb99fb61c98d0 *man/set_data_id.Rd
 07354bbd39c0e6e16826a85858253ec9 *man/write_docx.Rd
 814aaaacdd4cdfa7f0312bcd3f85fdfb *man/write_pptx.Rd
-438ae00558d795d533c73a6110f2f16c *src/RcppExports.cpp
+9e744d4e54b222906d92285639678e24 *src/RcppExports.cpp
 742af093f9781a9fb23827e63250c52f *src/a_color.cpp
 64d00e3d3143c46ab654e4fda77417e0 *src/a_color.h
 c034cc76a642c8af0ebbcd36b98bf224 *src/a_path.cpp
@@ -50,8 +51,10 @@ afeac7369105a614c3f2782c8e502fc3 *src/a_prstgeom.cpp
 33f200cd27134b66aaacb8b79e7c74d1 *src/a_prstgeom.h
 bedc7f0d1e12456200e20a8d80f8541e *src/body_pr.cpp
 c70244e556ffe10efa07f1104513eb8b *src/body_pr.h
-b5ef566f51bbee522e840f76b23430b5 *src/docx.cpp
-417f8fd6f235fc5421cc89a9ca3b3286 *src/dsvg.cpp
+995a223a7ee0bc84cb8544cd3e7c3223 *src/clipper.cpp
+c3e16b8b5bb48f861e83ddd2cfe723d7 *src/clipper.h
+16e09825e7e53f54d57d79be0805dc26 *src/docx.cpp
+f39e758c9e1e76d30f5f6d2bd5d73d67 *src/dsvg.cpp
 b56c449e65d398a5086bc2065d7aa7db *src/empty_body_text.cpp
 9d939e907d33fb3fc21bdb88512fe994 *src/empty_body_text.h
 7a0b7ad157a18a5ad355651b4aa9e7a8 *src/fonts.cpp
@@ -64,7 +67,7 @@ b8136340f3afaca5d4a43a495ae01f02 *src/main_tree.cpp
 f0a37d70d94b84bd5a03b376b4cc257b *src/nv_pr.h
 d57f6960dc6596229f835f3601c7455a *src/ppr.cpp
 8fd6808d308cee582c140a474af0fe45 *src/ppr.h
-4ba043fdd329e4b87ebda434165449f1 *src/pptx.cpp
+d53a4ed9400db5603f9a204a98b70cbc *src/pptx.cpp
 e96a3b1dcab073ab12e51bde7c8ff35a *src/rotate.cpp
 d7901478aa74876d01749085de3989cf *src/rotate.h
 d98e72119afb8000d24ff48dec66205e *src/rpr.cpp
@@ -72,7 +75,7 @@ d98e72119afb8000d24ff48dec66205e *src/rpr.cpp
 1e3d4f524b28cccc41c27583ca5214c7 *src/xfrm.cpp
 b7855320de13c385ad7971472cb12cd5 *src/xfrm.h
 37cf05e5ac415da06bb7d39b8b44d1dd *tests/testthat.R
-9736a3b98adcd2d686b2b38ee4b2e1c6 *tests/testthat/test-bg.R
+7d638987be7313c581743e0e24f4f991 *tests/testthat/test-bg.R
 c483308c132bf5a9f92fb2f1c1ac3b5a *tests/testthat/test-dml-extensions.R
 40b319d11768ea18ea888900d53f1e3b *tests/testthat/test-dml-filename.R
 37d81dcc83edab8d3ace05d6a60f9b54 *tests/testthat/test-docx-lines.R
@@ -83,7 +86,7 @@ c49f50a044237c45fd38ab363639e8ac *tests/testthat/test-docx-xfrm.R
 43951e74cb82357aa3813effd8494e9a *tests/testthat/test-pptx-raster.R
 c4eaa7cdd961ce3d6e6279dd01053194 *tests/testthat/test-pptx-text.R
 1fccea8ff8778e461beb1f3cf5951b77 *tests/testthat/test-pptx-xfrm.R
-94ed6f76eaf1b750fee3c22d63977352 *tests/testthat/test-svg-interactive.R
+4edcd3318c1e64d8e02e6684dde54531 *tests/testthat/test-svg-interactive.R
 44b7149b6ec1f0e93d8c10d9886f6ef7 *tests/testthat/test-svg-lines.R
 e9bc30cfac8fab4a5de76bef19221d61 *tests/testthat/test-svg-points.R
 5279d29ee47eaeef09d973c6a1d9cbae *tests/testthat/test-svg-text.R
