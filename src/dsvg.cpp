@@ -53,7 +53,7 @@ public:
            std::string fontname_serif_,
            std::string fontname_sans_,
            std::string fontname_mono_,
-           std::string fontname_symbol_ ):
+           std::string fontname_symbol_, double width_, double height_ ):
       filename(filename_),
       pageno(0),
 	    id(-1),
@@ -66,8 +66,12 @@ public:
       fontname_sans(fontname_sans_),
       fontname_mono(fontname_mono_),
       fontname_symbol(fontname_symbol_),
-      cc(gdtools::context_create()) {
+      cc(gdtools::context_create() ) {
     file = fopen(R_ExpandFileName(filename.c_str()), "w");
+    clipleft = 0.0;
+    clipright = width_;
+    cliptop = 0.0;
+    clipbottom = height_;
   }
 
   bool ok() const {
@@ -388,7 +392,7 @@ static void dsvg_raster(unsigned int *raster, int w, int h,
     height = -height;
 
   std::vector<unsigned int> raster_(w*h);
-  for ( int i = 0 ; i < raster_.size(); i++) {
+  for ( size_t i = 0 ; i < raster_.size(); i++) {
     raster_[i] = raster[i] ;
   }
 
@@ -525,7 +529,8 @@ pDevDesc dsvg_driver_new(std::string filename, int bg, double width,
   dd->haveTransparentBg = 2;
 
   dd->deviceSpecific = new DSVG_dev(filename, standalone, canvas_id, bg,
-                                  fontname_serif, fontname_sans, fontname_mono, fontname_symbol);
+                                  fontname_serif, fontname_sans, fontname_mono, fontname_symbol,
+                                  width * 72, height * 72);
   return dd;
 }
 
@@ -630,61 +635,3 @@ bool add_attribute(int dn, Rcpp::IntegerVector id,
   return true;
 }
 
-
-// [[Rcpp::export]]
-bool add_tooltip(int dn, Rcpp::IntegerVector id, std::vector< std::string > str){
-  int nb_elts = id.size();
-  pGEDevDesc dev= GEgetDevice(dn);
-
-  if (!dev) return false;
-
-  DSVG_dev *svgd = (DSVG_dev *) dev->dev->deviceSpecific;
-
-  fputs("<script type='text/javascript'><![CDATA[", svgd->file);
-
-  for( int i = 0 ; i < nb_elts ; i++ ){
-
-    fprintf(svgd->file, "$('#svg_%d').find('#%d').attr('data-toggle','tooltip').attr('title','%s')",
-    svgd->canvas_id, id[i], str[i].c_str() );
-    fputs(".attr('data-html','true').tooltip({'container':'body','placement':'bottom'});", svgd->file);
-  }
-  fputs("]]></script>", svgd->file);
-  return true;
-}
-
-
-// [[Rcpp::export]]
-bool add_click_event(int dn, Rcpp::IntegerVector id, std::vector< std::string > str){
-  int nb_elts = id.size();
-  pGEDevDesc dev= GEgetDevice(dn);
-
-  if (!dev) return false;
-
-  DSVG_dev *svgd = (DSVG_dev *) dev->dev->deviceSpecific;
-
-  fputs("<script type='text/javascript'><![CDATA[", svgd->file);
-  for( int i = 0 ; i < nb_elts ; i++ ){
-    fprintf(svgd->file, "$('#svg_%d').find('#%d').click(%s);",
-      svgd->canvas_id, id[i], str[i].c_str() );
-  }
-  fputs("]]></script>", svgd->file);
-  return true;
-}
-
-// [[Rcpp::export]]
-bool add_data_id(int dn, Rcpp::IntegerVector id, std::vector< std::string > data_id){
-  int nb_elts = id.size();
-  pGEDevDesc dev= GEgetDevice(dn);
-
-  if (!dev) return false;
-
-  DSVG_dev *svgd = (DSVG_dev *) dev->dev->deviceSpecific;
-
-  fputs("<script type='text/javascript'><![CDATA[", svgd->file);
-  for( int i = 0 ; i < nb_elts ; i++ ){
-    fprintf(svgd->file, "$('#svg_%d').find('#%d').attr('data-id','%s');",
-      svgd->canvas_id, id[i], data_id[i].c_str() );
-  }
-  fputs("]]></script>", svgd->file);
-  return true;
-}

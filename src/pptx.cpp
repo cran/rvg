@@ -65,7 +65,8 @@ public:
            std::string fontname_symbol_,
            bool editable_, double offx_, double offy_ , int id_,
            std::string raster_prefix_,
-           int next_rels_id_, int standalone_):
+           int next_rels_id_, int standalone_,
+           double width_, double height_ ):
       filename(filename_),
       pageno(0),
 	    id(id_),
@@ -80,6 +81,10 @@ public:
       cc(gdtools::context_create()){
 
     file = fopen(R_ExpandFileName(filename.c_str()), "w");
+    clipleft = 0.0;
+    clipright = width_;
+    cliptop = 0.0;
+    clipbottom = height_;
     clp = new clipper();
   }
 
@@ -263,7 +268,7 @@ static void pptx_line(double x1, double y1, double x2, double y2,
   std::vector<NumericVector> x_array = pptx_obj->clp->get_x_lines();
   std::vector<NumericVector> y_array = pptx_obj->clp->get_y_lines();
 
-  for( int l = 0 ; l < x_array.size() ; l++ ){
+  for( size_t l = 0 ; l < x_array.size() ; l++ ){
     pptx_do_polyline(x_array.at(l), y_array.at(l), gc, dd);
   }
 }
@@ -272,11 +277,10 @@ static void pptx_line(double x1, double y1, double x2, double y2,
 static void pptx_polyline(int n, double *x, double *y, const pGEcontext gc,
                          pDevDesc dd) {
   PPTX_dev *pptx_obj = (PPTX_dev*) dd->deviceSpecific;
-  int i;
   Rcpp::NumericVector x_(n);
   Rcpp::NumericVector y_(n);
 
-  for(i = 0 ; i < n ; i++ ){
+  for(int i = 0 ; i < n ; i++ ){
     x_[i] = x[i];
     y_[i] = y[i];
   }
@@ -286,7 +290,7 @@ static void pptx_polyline(int n, double *x, double *y, const pGEcontext gc,
   std::vector<NumericVector> x_array = pptx_obj->clp->get_x_lines();
   std::vector<NumericVector> y_array = pptx_obj->clp->get_y_lines();
 
-  for( int l = 0 ; l < x_array.size() ; l++ ){
+  for( size_t l = 0 ; l < x_array.size() ; l++ ){
     pptx_do_polyline(x_array.at(l), y_array.at(l), gc, dd);
   }
 }
@@ -294,7 +298,6 @@ static void pptx_polyline(int n, double *x, double *y, const pGEcontext gc,
 static void pptx_polygon(int n, double *x, double *y, const pGEcontext gc,
                         pDevDesc dd) {
   PPTX_dev *pptx_obj = (PPTX_dev*) dd->deviceSpecific;
-
   int i;
   Rcpp::NumericVector x_(n);
   Rcpp::NumericVector y_(n);
@@ -339,13 +342,16 @@ static void pptx_rect(double x0, double y0, double x1, double y1,
                      const pGEcontext gc, pDevDesc dd) {
 
   PPTX_dev *pptx_obj = (PPTX_dev*) dd->deviceSpecific;
-  Rcpp::NumericVector x_(2);
-  Rcpp::NumericVector y_(2);
+  Rcpp::NumericVector x_(4);
+  Rcpp::NumericVector y_(4);
   x_[0] = x0;
   y_[0] = y0;
   x_[1] = x1;
-  y_[1] = y1;
-
+  y_[1] = y0;
+  x_[2] = x1;
+  y_[2] = y1;
+  x_[3] = x0;
+  y_[3] = y1;
   pptx_obj->clp->set_data(x_, y_);
   pptx_obj->clp->clip_polygon();
   Rcpp::NumericVector x__ = pptx_obj->clp->get_x();
@@ -597,7 +603,10 @@ pDevDesc pptx_driver_new(std::string filename, int bg, double width, double heig
     fontname_serif, fontname_sans, fontname_mono, fontname_symbol,
     editable, offx*72, offy*72, id,
     raster_prefix,
-    next_rels_id, standalone);
+    next_rels_id, standalone,
+    width * 72,
+    height * 72
+    );
   return dd;
 }
 

@@ -179,7 +179,7 @@ void clipper::intersect(){
 
 
     std::stable_sort(out.begin(), out.end());
-    for( int o = 0 ; o < out.size() ; o ++){
+    for( size_t o = 0 ; o < out.size() ; o ++){
       dout_.push_back(out.at(o).d);
       xout_.push_back(out.at(o).x);
       yout_.push_back(out.at(o).y);
@@ -278,7 +278,7 @@ void clipper::add_intersect(){
 
 
     std::stable_sort(out.begin(), out.end());
-    for( int o = 0 ; o < out.size() ; o ++){
+    for( size_t o = 0 ; o < out.size() ; o ++){
       dout_.push_back(out.at(o).d);
       xout_.push_back(out.at(o).x);
       yout_.push_back(out.at(o).y);
@@ -335,7 +335,7 @@ void clipper::correct(){
 
   int L1, L2;
 
-  for( int i = 0 ; i < dout_.size() -1 ; i++ ){
+  for( size_t i = 0 ; i < dout_.size() -1 ; i++ ){
     L1 = Lout_.at(i);
     L2 = Lout_.at(i+1);
     if( L1 < 0 ){
@@ -355,7 +355,7 @@ void clipper::correct(){
 }
 
 bool clipper::has_pairneg(){
-  for( int i = 0 ; i < dout_.size() - 1; i++ ){
+  for( size_t i = 0 ; i < dout_.size() - 1; i++ ){
     if( Lout_.at(i) < 0 && Lout_.at(i)==Lout_.at(i+1) ){
       return 1;
     }
@@ -398,7 +398,7 @@ void clipper::drop_outsiders(){
   std::vector<double> dout__, xout__, yout__;
   std::vector<int> Lout__;
 
-  for( int i = 0 ; i < dout_.size(); i++ ){
+  for( size_t i = 0 ; i < dout_.size(); i++ ){
     if( Lout_.at(i) > -1 ){
       xout__.push_back(xout_.at(i));
       yout__.push_back(yout_.at(i));
@@ -421,7 +421,7 @@ void clipper::group_lines(){
 
   int first_ = -1;
   int id = 0;
-  int i = 0;
+  size_t i = 0;
 
   if( dout_.size() < 1) return ;
 
@@ -476,7 +476,7 @@ void clipper::extract_lines(){
   int first_id = iout_.at(0);
   std::vector<double> x_, y_;
 
-  for( int i = 0 ; i < dout_.size(); i++ ){
+  for( size_t i = 0 ; i < dout_.size(); i++ ){
     if( first_id != iout_.at(i) ){
       x_lines.push_back(wrap(x_));
       y_lines.push_back(wrap(y_));
@@ -493,35 +493,6 @@ void clipper::extract_lines(){
 
 }
 
-double clipper::get_xmin(){
-  double xmin = xout_.at(0);
-  for(int i = 1 ; xout_.size() ; i++ ){
-    if( xout_.at(i) < xmin ) xmin = xout_.at(i);
-  }
-  return xmin;
-}
-
-double clipper::get_ymin(){
-  double ymin = yout_.at(0);
-  for(int i = 1 ; yout_.size() ; i++ ){
-    if( yout_.at(i) < ymin ) ymin = yout_.at(i);
-  }
-  return ymin;
-}
-double clipper::get_xmax(){
-  double xmax = xout_.at(0);
-  for(int i = 1 ; xout_.size() ; i++ ){
-    if( xout_.at(i) > xmax ) xmax = xout_.at(i);
-  }
-  return xmax;
-}
-double clipper::get_ymax(){
-  double ymax = yout_.at(0);
-  for(int i = 1 ; yout_.size() ; i++ ){
-    if( yout_.at(i) > ymax ) ymax = yout_.at(i);
-  }
-  return ymax;
-}
 
 std::vector<NumericVector> clipper::get_x_lines(){
   return x_lines;
