@@ -1,7 +1,7 @@
 Package: rvg
 Type: Package
 Title: R Graphics Devices for Vector Graphics Output
-Version: 0.0.8
+Version: 0.0.9
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
       email = "david.gohel@ardata.fr"),
@@ -12,7 +12,7 @@ Authors@R: c(
       comment = "clipping algorithms")
     )
 Description: Vector Graphics devices for 'SVG', 'DrawingML' for
-  Microsoft Word and 'DrawingML' for Microsoft PowerPoint.
+  Microsoft Word, PowerPoint and Excel.
 License: GPL-3
 Depends: R (>= 3.0)
 Imports: grDevices, Rcpp, xml2, gdtools, utils, R.utils
@@ -22,10 +22,10 @@ URL: https://github.com/davidgohel/rvg
 BugReports: https://github.com/davidgohel/rvg/issues
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
-Packaged: 2016-03-04 10:58:50 UTC; davidgohel
+Packaged: 2016-04-28 14:01:44 UTC; davidgohel
 Author: David Gohel [aut, cre],
   Bob Rudis [ctb] (the javascript code used by function set_attr),
   Francois Brunetti [ctb] (clipping algorithms)
 Maintainer: David Gohel <david.gohel@ardata.fr>
 Repository: CRAN
-Date/Publication: 2016-03-04 14:53:30
+Date/Publication: 2016-04-29 07:34:38
