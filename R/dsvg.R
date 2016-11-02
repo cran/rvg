@@ -3,10 +3,6 @@
 #' @description This function produces SVG files (compliant to the current w3 svg XML standard)
 #' where elements can be made interactive.
 #'
-#' @details Graphic elements are made interactive with \code{jQuery} code. To embed
-#' an interactive svg file into a web page, check that \code{jQuery} javascript file
-#' is included.
-#'
 #' @param file the file where output will appear.
 #' @param height,width Height and width in inches.
 #' @param bg Default background color for the plot (defaults to "white").
@@ -15,8 +11,12 @@
 #'   xml header and default namespace.
 #' @param canvas_id svg id within HTML page.
 #' @param fontname_serif,fontname_sans,fontname_mono,fontname_symbol font
-#' names for font faces.
-#' Used fonts should be available in the operating system.
+#' names for font faces. Used fonts should be available in the operating system.
+#' These arguments are deprecated in favor of the \code{fonts} argument.
+#' @param fonts Named list of font names to be aliased with
+#'   fonts installed on your system. If unspecified, the R default
+#'   families \code{sans}, \code{serif}, \code{mono} and \code{symbol}
+#'   are aliased to the family returned by \code{\link[gdtools]{match_family}()}.
 #' @seealso \code{\link{Devices}}, \code{\link{dml_docx}}, \code{\link{dml_pptx}}
 #' @examples
 #' dsvg()
@@ -29,18 +29,36 @@
 #' @export
 dsvg <- function(file = "Rplots.svg", width = 6, height = 6, bg = "white",
                 pointsize = 12, standalone = TRUE, canvas_id = 1,
-                fontname_serif = "Times New Roman",
-                fontname_sans = "Calibri",
-                fontname_mono = "Courier New",
-                fontname_symbol = "Symbol" ) {
+                fonts = list(),
+                fontname_serif = NULL,
+                fontname_sans = NULL,
+                fontname_mono = NULL,
+                fontname_symbol = NULL) {
+
+  if( !is.null(fontname_serif) || !is.null(fontname_sans) ||
+      !is.null(fontname_mono) || !is.null(fontname_symbol) ){
+    warning("arguments fontname_(sans|serif|mono|symbol) are deprecated in favor of the fonts argument")
+    fonts <- list()
+
+    if( !is.null(fontname_serif) )
+      fonts$serif <- fontname_serif
+    if( !is.null(fontname_sans) )
+      fonts$sans <- fontname_sans
+    if( !is.null(fontname_mono) )
+      fonts$mono <- fontname_mono
+    if( !is.null(fontname_symbol) )
+      fonts$symbol <- fontname_symbol
+  }
 
 
-  invisible(DSVG_(file=file, width=width, height=height, bg=bg, pointsize=pointsize, standalone=standalone,
+  system_fonts <- validate_fonts( fonts )
+
+  invisible(DSVG_(file=file, width=width, height=height, bg=bg,
+                  pointsize=pointsize,
+                  standalone=standalone,
                   canvas_id=canvas_id,
-                  fontname_serif = fontname_serif,
-                  fontname_sans = fontname_sans,
-                  fontname_mono = fontname_mono,
-                  fontname_symbol = fontname_symbol)
+                  aliases = list(system = system_fonts, user = list())
+                  )
             )
 }
 

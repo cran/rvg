@@ -1,5 +1,7 @@
 context("DOCX text")
 library(xml2)
+library(gdtools)
+
 
 test_that("text can be found", {
 
@@ -176,10 +178,15 @@ test_that("font sets weight/style", {
 
 
 test_that("font sets weight/style", {
+  skip_if_not(font_family_exists("Arial"))
+  skip_if_not(font_family_exists("Times New Roman"))
+  skip_if_not(font_family_exists("Courier New"))
+
   file <- tempfile()
   dml_docx( file = file, bg = "transparent",
-            fontname_serif = "Times New Roman", fontname_sans = "Arial",
-            fontname_mono = "Courier New")
+            fonts = list(sans="Arial", serif = "Times New Roman",
+                                mono = "Courier New")
+  )
   plot.new()
   text(0.5, 0.1, "a", family = "serif")
   text(0.5, 0.5, "a", family = "sans")
@@ -198,28 +205,11 @@ test_that("font sets weight/style", {
 
 test_that("a symbol has width greater than 0", {
   file <- tempfile()
-  dml_docx( file = file, bg = "transparent",
-            fontname_symbol = "Symbol")
+  dml_docx( file = file, bg = "transparent" )
   plot(c(0,2), c(0,2), type = "n")
   strw <- strwidth(expression(symbol("\042")))
   dev.off()
 
-  expect_lt(.Machine$double.eps, strw)
+  expect_gt(strw, 0)
 })
 
-test_that("symbol font family is 'Symbol'", {
-  file <- tempfile()
-  dml_docx( file = file, bg = "transparent",
-            fontname_symbol = "Symbol")
-  plot(c(0,2), c(0,2), type = "n", axes = FALSE, xlab = "", ylab = "")
-  text(1, 1, expression(symbol("\042")))
-  dev.off()
-
-  x <- read_xml(file)
-  ns <-  xml_ns( x )
-  xpath_ <- ".//wps:wsp/wps:txbx/w:txbxContent/w:p/w:r/w:rPr/w:rFonts"
-  font_node <- xml_find_first(x, xpath_, ns = xml_ns( x ))
-  expect_equal(xml_attr(font_node, "ascii"), "Symbol")
-  expect_equal(xml_attr(font_node, "hAnsi"), "Symbol")
-  expect_equal(xml_attr(font_node, "cs"), "Symbol")
-})
