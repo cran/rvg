@@ -6,9 +6,9 @@
 \usage{
 dml_docx(file = "Rplots.dml", width = 6, height = 6, bg = "white",
   fonts = list(), pointsize = 12, editable = TRUE, id = 1L,
-  next_rels_id = 1L, raster_prefix = "raster_", standalone = TRUE,
-  fontname_serif = NULL, fontname_sans = NULL, fontname_mono = NULL,
-  fontname_symbol = NULL)
+  last_rel_id = 1L, next_rels_id, raster_prefix = "raster_",
+  standalone = TRUE, fontname_serif = NULL, fontname_sans = NULL,
+  fontname_mono = NULL, fontname_symbol = NULL)
 }
 \arguments{
 \item{file}{DrawingML file.}
@@ -30,9 +30,11 @@ be editable.}
 \item{id}{specifies a unique identifier (integer) within the document
 that will contain the DrawingML instructions.}
 
-\item{next_rels_id}{specifies the next unique identifier (integer)
+\item{last_rel_id}{specifies the last unique identifier (integer)
 within relationship file that will be used to reference embedded
 raster images if any.}
+
+\item{next_rels_id}{deprecated. Use last_rel_id instead.}
 
 \item{raster_prefix}{string value used as prefix for png
 files produced when raster objects are printed on the
@@ -48,13 +50,27 @@ These arguments are deprecated in favor of the \code{fonts} argument.}
 \description{
 Graphics devices for Microsoft Word DrawingML format.
 }
+\note{
+Text rendering is not optimal, this device should not be considered as a
+valid R graphical device.
+
+The DrawingML implementation for 'Microsoft Word' is different from standard
+DrawingML particulary with text boxes. The major point is that the exact size
+and position of text boxes cannot be exactly defined regarding to text widths
+and heights.
+
+Autofit option has been set as a workaround, this moves text slightly on the produced graphic when
+edited in 'Microsoft Word' but this makes sure the text can be read.
+}
 \examples{
+\donttest{
 dml_docx( file = tempfile() )
 plot(1:11,(-5:5)^2, type='b', main="Simple Example")
 dev.off()
 }
+}
 \seealso{
-\code{\link{Devices}}, \code{\link{dml_docx}}, \code{\link{dsvg}}
+\code{\link{Devices}}
 }
 \keyword{device}
 

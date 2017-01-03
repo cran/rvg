@@ -10,8 +10,10 @@
 #' @param size slide size in inches.
 #' @param ... arguments for \code{fun} (passed on to \code{\link{dml_xlsx}}.)
 #' @examples
+#' \donttest{
 #' write_xlsx(file = "my_plot_1.xlsx", code = plot(rnorm(10)))
 #' write_xlsx(file = "my_plot_2.xlsx", code = barplot(1:7, col = 1:7))
+#' }
 #' @keywords device
 #' @export
 write_xlsx <- function(
@@ -36,7 +38,7 @@ write_xlsx <- function(
   pars <- list(...)
   pars$file <- dml_file
   pars$id <- 0L
-  pars$next_rels_id <- -1L
+  pars$next_rels_id <- 0L
   pars$raster_prefix <- img_directory
   pars$standalone <- TRUE
 
@@ -70,7 +72,7 @@ write_xlsx <- function(
     media_dir <- file.path(template_dir, "xl", "media")
     if( !file.exists(media_dir))
       dir.create(media_dir)
-
+    #browser()
     for(i in seq_len(nrow(new_rels))){
       file.copy(from = raster_files[i], to = media_dir)
     }

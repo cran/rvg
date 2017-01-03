@@ -18,27 +18,42 @@
 #' be editable.
 #' @param id specifies a unique identifier (integer) within the document
 #' that will contain the DrawingML instructions.
-#' @param next_rels_id specifies the next unique identifier (integer)
+#' @param last_rel_id specifies the last unique identifier (integer)
 #' within relationship file that will be used to reference embedded
 #' raster images if any.
+#' @param next_rels_id deprecated. Use last_rel_id instead.
 #' @param raster_prefix string value used as prefix for png
 #' files produced when raster objects are printed on the
 #' graphical device.
 #' @param standalone produce a standalone drawingml file? If \code{FALSE}, omits
 #'   xml header and namespaces.
+#' @note
+#' Text rendering is not optimal, this device should not be considered as a
+#' valid R graphical device.
+#'
+#' The DrawingML implementation for 'Microsoft Word' is different from standard
+#' DrawingML particulary with text boxes. The major point is that the exact size
+#' and position of text boxes cannot be exactly defined regarding to text widths
+#' and heights.
+#'
+#' Autofit option has been set as a workaround, this moves text slightly on the produced graphic when
+#' edited in 'Microsoft Word' but this makes sure the text can be read.
 #' @examples
+#' \donttest{
 #' dml_docx( file = tempfile() )
 #' plot(1:11,(-5:5)^2, type='b', main="Simple Example")
 #' dev.off()
+#' }
 #' @keywords device
-#' @seealso \code{\link{Devices}}, \code{\link{dml_docx}}, \code{\link{dsvg}}
+#' @seealso \code{\link{Devices}}
 #' @export
 dml_docx <- function(file = "Rplots.dml", width = 6, height = 6,
                      bg = "white",
                      fonts = list(),
                      pointsize = 12, editable = TRUE,
                      id = 1L,
-                     next_rels_id = 1L,
+                     last_rel_id = 1L,
+                     next_rels_id,
                      raster_prefix = "raster_", standalone = TRUE,
                      fontname_serif = NULL,
                      fontname_sans = NULL,
@@ -60,13 +75,17 @@ dml_docx <- function(file = "Rplots.dml", width = 6, height = 6,
       fonts$symbol <- fontname_symbol
   }
 
+  if(!missing(next_rels_id)){
+    last_rel_id <- next_rels_id
+  }
+
   system_fonts <- validate_fonts( fonts )
 
   invisible(DOCX_(file, bg, width, height,
                   pointsize = pointsize,
                   aliases = list(system = system_fonts, user = list()),
                   editable = editable, id = id, raster_prefix = raster_prefix,
-                  next_rels_id = next_rels_id, standalone = standalone
+                  last_rel_id = last_rel_id, standalone = standalone
   ))
 }
 

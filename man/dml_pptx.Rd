@@ -6,7 +6,7 @@
 \usage{
 dml_pptx(file = "Rplots.dml", width = 6, height = 6, offx = 1,
   offy = 1, bg = "white", fonts = list(), pointsize = 12,
-  editable = TRUE, id = 1L, next_rels_id = 1L,
+  editable = TRUE, id = 1L, last_rel_id = 1L, next_rels_id,
   raster_prefix = "raster_", standalone = TRUE, fontname_serif = NULL,
   fontname_sans = NULL, fontname_mono = NULL, fontname_symbol = NULL)
 }
@@ -31,9 +31,11 @@ are aliased to the family returned by \code{\link[gdtools]{match_family}()}.}
 \item{id}{specifies a unique identifier (integer) within the slide
 that will contain the DrawingML instructions.}
 
-\item{next_rels_id}{specifies the next unique identifier (integer)
+\item{last_rel_id}{specifies the last unique identifier (integer)
 within relationship file that will be used to reference embedded
 raster images if any.}
+
+\item{next_rels_id}{deprecated. Use last_rel_id instead.}
 
 \item{raster_prefix}{string value used as prefix for png
 files produced when raster objects are printed on the
@@ -50,12 +52,14 @@ These arguments are deprecated in favor of the \code{fonts} argument.}
 Graphics devices for Microsoft PowerPoint DrawingML format.
 }
 \examples{
+\donttest{
 dml_pptx( file = tempfile() )
 plot(1:11,(-5:5)^2, type='b', main="Simple Example")
 dev.off()
 }
+}
 \seealso{
-\code{\link{Devices}}, \code{\link{dml_docx}}, \code{\link{dsvg}}
+\code{\link{Devices}}
 }
 \keyword{device}
 

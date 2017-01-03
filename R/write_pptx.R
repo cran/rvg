@@ -10,8 +10,10 @@
 #' @param size slide size in inches.
 #' @param ... arguments for \code{fun} (passed on to \code{\link{dml_pptx}}.)
 #' @examples
+#' \donttest{
 #' write_pptx(file = "my_plot_1.pptx", code = plot(rnorm(10)))
 #' write_pptx(file = "my_plot_2.pptx", code = barplot(1:7, col = 1:7))
+#' }
 #' @keywords device
 #' @export
 write_pptx <- function(
@@ -37,14 +39,13 @@ write_pptx <- function(
   pars <- list(...)
   pars$file <- dml_file
   pars$id <- 0L
-  pars$next_rels_id <- as.integer( relationships$max_int - 1 )
+  pars$last_rel_id <- as.integer( relationships$max_int )
   pars$raster_prefix <- img_directory
   pars$standalone <- FALSE
 
   do.call("dml_pptx", pars)
 
   tryCatch(code, finally = dev.off() )
-
   raster_files <- list.files(path = getwd(), pattern = paste0("^", uid, "(.*)\\.png$"), full.names = TRUE )
 
   if( length(raster_files ) > 0 ){
@@ -52,6 +53,7 @@ write_pptx <- function(
 
 
     ids <- seq_along(raster_files) + relationships$max_int
+
     expected_rels <- data.frame(
       id = paste0("rId", ids ),
       int_id = ids,
@@ -69,8 +71,6 @@ write_pptx <- function(
     cat(Relationship)
     cat("</Relationships>")
     sink( )
-
-    document_rel <- file.path( template_dir, "ppt/slides/", "_rels/slide1.xml.rels" )
 
     media_dir <- file.path(template_dir, "ppt", "media")
     if( !file.exists(media_dir))
