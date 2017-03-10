@@ -71,30 +71,3 @@ set_attr = function( ids, attribute, str ){
 
   invisible()
 }
-
-#' @importFrom utils zip
-#' @importFrom R.utils getAbsolutePath
-pack_folder <- function( folder, target ){
-  target <- getAbsolutePath(target, expandTilde = TRUE)
-  curr_wd <- getwd()
-  zip_dir <- folder
-  setwd(zip_dir)
-  zip(zipfile = target, flags = "-r9Xq",
-      files = list.files(all.files = TRUE, recursive = TRUE, include.dirs = FALSE))
-  setwd(curr_wd)
-  target
-}
-
-read_relationship <- function(filename) {
-  doc <- read_xml( x = filename )
-  children <- xml_children( doc )
-  ns <- xml_ns( doc )
-  id <- sapply( children, xml_attr, attr = "Id", ns)
-  int_id <- as.integer( gsub(pattern = "^rId", replacement = "", x = id ) )
-  type <- sapply( children, xml_attr, attr = "Type", ns)
-  target <- sapply( children, xml_attr, attr = "Target", ns)
-  out <- list( data = data.frame(id = id, int_id = int_id, type = type, target = target, stringsAsFactors = FALSE ) )
-  out$max_int <- max(int_id, na.rm = T)
-  out
-}
-
