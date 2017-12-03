@@ -11,23 +11,6 @@ list_raster_files <- function(img_dir){
 }
 
 
-extract_group_sp <- function(dml_str){
-  dml_str <- gsub(pattern = "<p:spTree>",
-                  replacement = paste0("<p:spTree xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" ",
-                                       "xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ",
-                                       "xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\" ",
-                                       "xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">"),
-                  x = dml_str )
-  dml_str <- as.character( xml_find_first( as_xml_document(dml_str), "//p:grpSp" ) )
-  dml_str <- gsub(pattern = "<p:grpSp>",
-                  replacement = paste0("<p:grpSp xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" ",
-                                       "xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" ",
-                                       "xmlns:p=\"http://schemas.openxmlformats.org/presentationml/2006/main\" ",
-                                       "xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\">"),
-                  x = dml_str )
-  dml_str
-}
-
 #' @export
 #' @title add a plot output as vector graphics into a PowerPoint object
 #' @description produces a vector graphics output from R plot instructions
@@ -35,13 +18,14 @@ extract_group_sp <- function(dml_str){
 #' by \code{\link[officer]{read_pptx}}.
 #' @param x an \code{rpptx} object produced by \code{officer::read_pptx}
 #' @param code plot instructions
+#' @param ggobj ggplot objet to print. argument \code{code} will
+#' be ignored if this argument is supplied.
 #' @param type placeholder type
 #' @param index placeholder index (integer). This is to be used when a placeholder type
 #' is not unique in the current slide, e.g. two placeholders with type 'body'.
 #' @param ... arguments passed on to \code{\link{dml_pptx}}.
 #' @importFrom officer ph_from_xml
 #' @importFrom xml2 xml_find_first as_xml_document
-#' @importFrom utils compareVersion packageDescription
 #' @examples
 #' \donttest{
 #' library(officer)
@@ -53,7 +37,7 @@ extract_group_sp <- function(dml_str){
 #'   left = 1, top = 2, width = 6, height = 4)
 #' print(doc, target = "vg.pptx")
 #' }
-ph_with_vg <- function( x, code, type, index = 1, ... ){
+ph_with_vg <- function( x, code, ggobj = NULL, type, index = 1, ... ){
   stopifnot(inherits(x, "rpptx"))
   slide <- x$slide$get_slide(x$cursor)
 
@@ -64,11 +48,7 @@ ph_with_vg <- function( x, code, type, index = 1, ... ){
   id_xfrm <- as.list(id_xfrm[c("cx", "cy", "offx", "offy")])
   names(id_xfrm) <- c("width", "height", "offx", "offy")
 
-  # pach for officer get_xfrm change - rvg should
-  # import officer >= 0.1.8 for next version
-  officer_version <- packageDescription("officer")$Version
-  if( compareVersion("0.1.7", officer_version) < 0 )
-    id_xfrm <- lapply(id_xfrm, function(x) x / 914400 )
+  id_xfrm <- lapply(id_xfrm, function(x) x / 914400 )
 
   pars <- list(...)
   add_named_args <- setdiff ( names(id_xfrm), names( pars ) )
@@ -82,16 +62,21 @@ ph_with_vg <- function( x, code, type, index = 1, ... ){
 
   do.call("dml_pptx", pars)
 
-  tryCatch(code, finally = dev.off() )
+  tryCatch({
+    if( !is.null(ggobj) ){
+      stopifnot(inherits(ggobj, "ggplot"))
+      print(ggobj)
+    } else
+      code
+  }, finally = dev.off() )
+
   raster_files <- list_raster_files(img_dir = img_directory )
   dml_str <- scan( dml_file, what = "character", quiet = T, sep = "\n" )
-
   if( length(raster_files) ){
     slide$reference_img(src = raster_files, dir_name = file.path(x$package_dir, "ppt/media"))
     unlink(raster_files, force = TRUE)
   }
-
-  dml_str <- extract_group_sp( dml_str )
+  dml_str <- paste(dml_str, collapse = "")
   ph_from_xml(x = x, value = dml_str, type = type, index = index )
 }
 
@@ -102,7 +87,7 @@ ph_with_vg <- function( x, code, type, index = 1, ... ){
 #' @param left,top left and top origin of the plot on the slide in inches.
 #' @param height,width Height and width in inches.
 #' @importFrom officer ph_from_xml_at
-ph_with_vg_at <- function( x, code, left, top, width, height, ... ){
+ph_with_vg_at <- function( x, code, ggobj = NULL, left, top, width, height, ... ){
   stopifnot(inherits(x, "rpptx"))
   slide <- x$slide$get_slide(x$cursor)
 
@@ -114,7 +99,14 @@ ph_with_vg_at <- function( x, code, left, top, width, height, ... ){
            offy = top, id = 0L, raster_prefix = img_directory, standalone = FALSE,
            last_rel_id = slide$relationship()$get_next_id() - 1, ...)
 
-  tryCatch(code, finally = dev.off() )
+  tryCatch({
+    if( !is.null(ggobj) ){
+      stopifnot(inherits(ggobj, "ggplot"))
+      print(ggobj)
+    } else
+      code
+  }, finally = dev.off() )
+
   raster_files <- list_raster_files(img_dir = img_directory )
   dml_str <- scan( dml_file, what = "character", quiet = T, sep = "\n" )
 
@@ -123,6 +115,6 @@ ph_with_vg_at <- function( x, code, left, top, width, height, ... ){
     unlink(raster_files, force = TRUE)
   }
 
-  dml_str <- extract_group_sp( dml_str )
+  dml_str <- paste(dml_str, collapse = "")
   ph_from_xml_at(x = x, value = dml_str, left, top, width, height )
 }
