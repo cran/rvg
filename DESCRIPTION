@@ -1,7 +1,7 @@
 Package: rvg
 Type: Package
 Title: R Graphics Devices for Vector Graphics Output
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
       email = "david.gohel@ardata.fr"),
@@ -24,13 +24,13 @@ LinkingTo: Rcpp, gdtools
 Suggests: htmltools, testthat, covr, grid, knitr
 URL: https://github.com/davidgohel/rvg
 BugReports: https://github.com/davidgohel/rvg/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 NeedsCompilation: yes
-Packaged: 2019-11-11 19:23:52 UTC; davidgohel
+Packaged: 2020-01-26 09:50:55 UTC; davidgohel
 Author: David Gohel [aut, cre],
   Bob Rudis [ctb] (the javascript code used by function set_attr),
   Francois Brunetti [ctb] (clipping algorithms)
 Maintainer: David Gohel <david.gohel@ardata.fr>
 Repository: CRAN
-Date/Publication: 2019-11-11 20:10:02 UTC
+Date/Publication: 2020-01-26 23:40:02 UTC
