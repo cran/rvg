@@ -2,13 +2,13 @@
 % Please edit documentation in R/defunct.R
 \name{rvg-defunct}
 \alias{rvg-defunct}
-\alias{dml_docx}
-\alias{body_add_vg}
+\alias{ph_with_vg}
+\alias{ph_with_vg_at}
 \title{Defunct Functions in Package rvg}
 \usage{
-dml_docx(...)
+ph_with_vg(...)
 
-body_add_vg(...)
+ph_with_vg_at(...)
 }
 \arguments{
 \item{...}{unused arguments}
@@ -17,7 +17,7 @@ body_add_vg(...)
 Defunct Functions in Package rvg
 }
 \details{
-\code{dml_docx()} is removed and can be replaced by \code{devEMF::emf}.
+\code{ph_with_vg()} is replaced by \code{officer::ph_with}.
 
-\code{body_add_vg()} is removed and can be replaced by \code{officer::body_add_img}.
+\code{ph_with_vg_at()} is replaced by \code{officer::ph_with}.
 }
