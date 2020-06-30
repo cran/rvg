@@ -1,9 +1,19 @@
+# rvg 0.2.5
+
+## Changes
+
+* update for changes in the R graphics engine (thanks to Dr Paul Murrell)
+* function `body_add_vg` is defunct.
+* functions `ph_with_vg` and `ph_with_vg_at` have been removed.
+
 # rvg 0.2.4
 
 ## Changes
 
 * functions `ph_with_vg` and `ph_with_vg_at` are defunct and will be removed in the next release.
 * rvg web site is now indicated in DESCRIPTION file.
+* functions `ph_with_vg` and `ph_with_vg_at` are defunct.
+
 
 # rvg 0.2.3
 
