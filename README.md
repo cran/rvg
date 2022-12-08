@@ -1,13 +1,11 @@
 rvg package
 ================
 
-[![Travis-CI Build
-Status](https://travis-ci.org/davidgohel/rvg.svg?branch=master)](https://travis-ci.org/davidgohel/rvg)
-[![Build
-status](https://ci.appveyor.com/api/projects/status/github/davidgohel/rvg?branch=master)](https://ci.appveyor.com/project/davidgohel/rvg/branch/master)
-[![version](http://www.r-pkg.org/badges/version/rvg)](https://CRAN.R-project.org/package=rvg)
-![cranlogs](http://cranlogs.r-pkg.org./badges/rvg)
-![Active](http://www.repostatus.org/badges/latest/active.svg)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/davidgohel/rvg/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/davidgohel/rvg/actions/workflows/R-CMD-check.yaml)
+[![version](https://www.r-pkg.org/badges/version/rvg)](https://CRAN.R-project.org/package=rvg)
+![cranlogs](https://cranlogs.r-pkg.org/badges/rvg) <!-- badges: end -->
 
 `rvg` is providing two graphics devices that produces Vector Graphics
 outputs in DrawingML format for Microsoft PowerPoint with `dml_pptx` and
@@ -43,9 +41,7 @@ print(doc, target = "vg.xlsx")
 ```
 
 By default, theses graphics are *editable*, element edition can be
-disabled with option `editable = FALSE`. For more details, read officer
-article
-[graphics](https://davidgohel.github.io/officer/articles/offcran/graphics.html).
+disabled with option `editable = FALSE`.
 
 ## Installation
 

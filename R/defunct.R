@@ -1,18 +1,8 @@
-#' @name rvg-defunct
+#' @export
+#' @keywords internal
 #' @title Defunct Functions in Package rvg
-NULL
-
-#' @export
-#' @rdname rvg-defunct
-#' @details `ph_with_vg()` is replaced by `officer::ph_with`.
-#' @param ... unused arguments
-ph_with_vg <- function(...){
-  .Defunct("officer::ph_with")
-}
-
-#' @export
-#' @rdname rvg-defunct
-#' @details `ph_with_vg_at()` is replaced by `officer::ph_with`.
-ph_with_vg_at <- function(...){
-  .Defunct("officer::ph_with")
+#' @param ... unused argument
+#' @details `body_add_vg()` is removed and can be replaced by `officer::body_add_img`.
+body_add_vg <- function(...){
+  .Defunct("officer::body_add_img")
 }
