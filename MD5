@@ -1,12 +1,12 @@
-68f948ce637585f3e13bdfa1ea5a9def *DESCRIPTION
+e884167e0f4017d9a630c35454a02db7 *DESCRIPTION
 20c1fb99a8d1ee6de3af1ff7fc3cd241 *NAMESPACE
-f4cbad3ec3605727e624753fabfd1b3f *NEWS.md
+7a93e42c28654fc34f54c30c9518f79a *NEWS.md
 99963995cc4d826f775ecc8f58dd1739 *R/RcppExports.R
 f1e651d3cbd3341670ac2a4646b96351 *R/defunct.R
 84fdfaebb85ca0307c5164db2f7256dd *R/dml_pptx.R
 595bc908becdcf8229192a07636f96ea *R/dml_xlsx.R
 1b08770b5d3294473adc8ce6bc65e735 *R/fonts.R
-b9cd8f27bdaa91b2e56066013a17de68 *R/ph_with_vg.R
+21ed85464954a08595416f2e967a2e7e *R/ph_with_vg.R
 82d80c4e45c2d25501d86377f06b5582 *R/xl_add_vg.R
 44444b925ebfcff725c04f15c3e8afef *README.md
 1e6046254675020e1076ccc73943f020 *inst/logo.svg
@@ -34,7 +34,7 @@ a015f112c8b73ee86ad864deadbcc071 *src/line_style.h
 23671b94c18bdbb865d7c65685795952 *src/ppr.cpp
 17c0028a5f05dcd14d5bb7f5cc98551e *src/ppr.h
 a4296eb9cc4bda2e54d5dd56055ed085 *src/pptx.cpp
-d4e3b07bba96b61f869ffbc47a30d594 *src/raster.cpp
+bca3e654cafb0bb26fc62a28cabf95ee *src/raster.cpp
 e083baf59d1602cefe8aedd4261d4e63 *src/raster.h
 85728535ba57b742c362c36acbaa5f0d *src/rpr.cpp
 dac608cafb3d4c391556bf762d62ed6b *src/rpr.h
