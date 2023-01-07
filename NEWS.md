@@ -1,9 +1,21 @@
+# rvg 0.3.2
+
+## Issues
+
+* use cstdint as required by the CRAN to let the package work 
+with GCC-13.
+
 # rvg 0.3.1
 
 ## Issues
 
 * add field `SystemRequirements` in DESCRIPTION file 
 so that software dependancies can be managed automatically.
+
+## Changes
+
+* use new mechanisms of officer 0.5 and drop complex
+treatments of raster/images for pptx.
 
 # rvg 0.3.0
 
