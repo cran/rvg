@@ -1,12 +1,12 @@
-5129f3f5e8b6c28305cbb79b8d63bc86 *DESCRIPTION
+a079e2b249da369cfff91d4fc2de242e *DESCRIPTION
 20c1fb99a8d1ee6de3af1ff7fc3cd241 *NAMESPACE
-dec94cf9f5971da79a27a3a443a90425 *NEWS.md
+0740b5e11391288e3cea37be29960606 *NEWS.md
 99963995cc4d826f775ecc8f58dd1739 *R/RcppExports.R
 f1e651d3cbd3341670ac2a4646b96351 *R/defunct.R
 84fdfaebb85ca0307c5164db2f7256dd *R/dml_pptx.R
 595bc908becdcf8229192a07636f96ea *R/dml_xlsx.R
 1b08770b5d3294473adc8ce6bc65e735 *R/fonts.R
-21ed85464954a08595416f2e967a2e7e *R/ph_with_vg.R
+bdbdcdf37b7847698edec4dacf1de367 *R/ph_with_vg.R
 82d80c4e45c2d25501d86377f06b5582 *R/xl_add_vg.R
 44444b925ebfcff725c04f15c3e8afef *README.md
 1e6046254675020e1076ccc73943f020 *inst/logo.svg
@@ -16,7 +16,7 @@ b53f80aea86517851bc176dc954ac0b9 *man/dml_pptx.Rd
 5ef4d23c700f6aaca1e634eb0430e6dd *man/dml_xlsx.Rd
 2e4031a51d0368a37316ec2d704fe4e5 *man/ph_with.dml.Rd
 1185bbd325757f85e8c2cde536f4b19a *man/xl_add_vg.Rd
-c38a387e5025d29da0a42bcec9d6b944 *src/Makevars
+5f05efe55b70273f72fc1174e7da90c4 *src/Makevars
 2cec33791efd347cbcb051402d7cf9c4 *src/Makevars.ucrt
 aaf23318566b8c32e2111686d09c8f12 *src/Makevars.win
 a5fc188a1a46f4a3d709cda681f7bfb3 *src/RcppExports.cpp
