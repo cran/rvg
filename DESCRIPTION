@@ -1,7 +1,7 @@
 Package: rvg
 Type: Package
 Title: R Graphics Devices for 'Office' Vector Graphics Output
-Version: 0.3.3
+Version: 0.3.4
 Authors@R: c(
     person("David", "Gohel", role = c("aut", "cre"),
       email = "david.gohel@ardata.fr"),
@@ -27,13 +27,13 @@ Suggests: testthat, grid
 URL: https://ardata-fr.github.io/officeverse/,
         https://davidgohel.github.io/rvg/
 BugReports: https://github.com/davidgohel/rvg/issues
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 NeedsCompilation: yes
-Packaged: 2023-05-10 08:31:18 UTC; davidgohel
+Packaged: 2024-08-27 07:29:13 UTC; davidgohel
 Author: David Gohel [aut, cre],
   ArData [cph],
   Bob Rudis [ctb] (the javascript code used by function set_attr),
   Francois Brunetti [ctb] (clipping algorithms)
 Maintainer: David Gohel <david.gohel@ardata.fr>
 Repository: CRAN
-Date/Publication: 2023-05-10 09:20:02 UTC
+Date/Publication: 2024-08-27 15:00:02 UTC
