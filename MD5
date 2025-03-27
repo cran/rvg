@@ -1,12 +1,12 @@
-b8f6130d5dd17ea28d3244e620df1649 *DESCRIPTION
+3c28ec80c21c40880d300a6fa1b8f9ef *DESCRIPTION
 20c1fb99a8d1ee6de3af1ff7fc3cd241 *NAMESPACE
-000a8760386c921fc483522988d2d05b *NEWS.md
+eb50dc636be4e26ad084adfda343e8b5 *NEWS.md
 99963995cc4d826f775ecc8f58dd1739 *R/RcppExports.R
 f1e651d3cbd3341670ac2a4646b96351 *R/defunct.R
 84fdfaebb85ca0307c5164db2f7256dd *R/dml_pptx.R
 595bc908becdcf8229192a07636f96ea *R/dml_xlsx.R
 ce77e8b4904baa841938ce7a122ca5f3 *R/fonts.R
-d0caea1c5d034b77e2a7b220a4f6d763 *R/ph_with_vg.R
+c870854e7ad6334d56ab75f33005d39a *R/ph_with_vg.R
 82d80c4e45c2d25501d86377f06b5582 *R/xl_add_vg.R
 44444b925ebfcff725c04f15c3e8afef *README.md
 1e6046254675020e1076ccc73943f020 *inst/logo.svg
@@ -17,7 +17,7 @@ b53f80aea86517851bc176dc954ac0b9 *man/dml_pptx.Rd
 2e4031a51d0368a37316ec2d704fe4e5 *man/ph_with.dml.Rd
 1185bbd325757f85e8c2cde536f4b19a *man/xl_add_vg.Rd
 5f05efe55b70273f72fc1174e7da90c4 *src/Makevars
-2cec33791efd347cbcb051402d7cf9c4 *src/Makevars.ucrt
+f4590e6223ac79ec631f7cb35303f882 *src/Makevars.ucrt
 aaf23318566b8c32e2111686d09c8f12 *src/Makevars.win
 a5fc188a1a46f4a3d709cda681f7bfb3 *src/RcppExports.cpp
 bfd4e4d6639ae808e255e3d9d70c81b0 *src/a_color.cpp
@@ -50,7 +50,7 @@ d572285ae46419356ed94a0c0206eabb *src/xlsx.cpp
 37cf05e5ac415da06bb7d39b8b44d1dd *tests/testthat.R
 78baf42ccfdbf31ac73330dc9f853477 *tests/testthat/test-bg.R
 c3f06f08246b6d4eb9e3a5d4f78ea9a6 *tests/testthat/test-dml-editable.R
-345b8340abe1f5c9230b346a2571858f *tests/testthat/test-officer.R
+efcabff2f90fbb9dccfd3f3a22b5dfe8 *tests/testthat/test-officer.R
 8a259f6db9a56dd9921fb865190b96f6 *tests/testthat/test-pptx-lines.R
 3049b4a133960655ab9539f8919b197b *tests/testthat/test-pptx-raster.R
 b967d97ed1a85d5b52099cf09e3d929b *tests/testthat/test-pptx-text.R
