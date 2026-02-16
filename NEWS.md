@@ -1,3 +1,45 @@
+# rvg 0.4.1
+
+## Issues
+
+- Text no longer inherits bold/italic style from PowerPoint/Excel templates;
+  `b` and `i` attributes are now always set explicitly in run properties.
+- Shapes without fill now emit explicit `<a:noFill/>` instead of omitting
+  the fill element, preventing unintended theme fill inheritance in
+  PowerPoint/Excel.
+- Circles (points) outside the clipping region are now skipped,
+  preventing data points from appearing beyond plot limits.
+- Text is no longer vertically shifted in PowerPoint/Excel output;
+  removed explicit line spacing that conflicted with the centered
+  anchor of text boxes.
+
+## changes
+
+- `dml_xlsx()` no longer exposes the `raster_prefix` argument; raster
+  files are now written to an internal temporary directory. The prefix
+  is embedded in the output as an XML comment
+  (`<!-- rvg_raster_prefix:... -->`), which callers can read after
+  `dev.off()` to locate the PNG files.
+- Implement `xlsx_path` callback for the XLSX device, enabling
+  `geom_path` and path-based geometries in Excel output.
+- Compound paths (`pptx_path`/`xlsx_path`) now combine all
+  sub-polygons into a single `<a:path>` element within `<a:custGeom>`,
+  so holes (donuts, cut-out polygons) render correctly via winding
+  rule.
+- Bump `deviceVersion` to v15 (`R_GE_group`) on R >= 4.2, avoiding
+  redundant double-clipping by the graphics engine and enabling
+  the `capabilities` callback so that `dev.capabilities()` reports
+  explicitly unsupported features (patterns, masks, clipping paths,
+  compositing, transformations). This eliminates the "Unable to
+  check capabilities" warning from ggplot2.
+- Font resolution now uses `gdtools::font_set_auto()` to detect
+  system fonts for `sans`, `serif`, `mono` and `symbol` aliases.
+  Minimum gdtools version bumped to 0.5.0.
+- `validate_fonts()` now warns when user-supplied font families
+  are not found on the system.
+- Documentation clarifies that fonts are not embedded in DrawingML
+  output and must be available on the reader's system.
+
 # rvg 0.4.0
 
 - migrate from gdtools to systemfonts

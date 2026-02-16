@@ -1,13 +1,12 @@
 #' @export
 #' @title add a plot output as vector graphics into an Excel object
-#' @description produces a vector graphics output from R plot instructions
-#' and add the result in an Excel sheet.
-#' by \code{\link[officer]{read_xlsx}}.
+#' @description Produces a vector graphics output from R plot instructions
+#' and adds the result in an Excel sheet.
 #' @param x an \code{rxlsx} object produced by \code{officer::read_xlsx}
 #' @param code plot instructions
 #' @param sheet sheet label/name
 #' @param height,width Height and width in inches.
-#' @param left,top left and top origin of the plot on the slide in inches.
+#' @param left,top left and top origin of the plot on the sheet in inches.
 #' @param ... arguments passed on to \code{\link{dml_xlsx}}.
 #' @importFrom xml2 xml_ns xml_new_root xml_attr<- xml_add_sibling
 #' @examples
@@ -31,11 +30,6 @@ xl_add_vg <- function(x, sheet, code, left, top, width, height, ...) {
     showWarnings = FALSE,
     recursive = TRUE
   )
-  img_directory <- file.path(
-    x$package_dir,
-    "xl/media",
-    basename(tempfile(pattern = "img_"))
-  )
 
   dml_file <- file.path(
     x$package_dir,
@@ -50,7 +44,6 @@ xl_add_vg <- function(x, sheet, code, left, top, width, height, ...) {
   pars$file <- dml_file
   pars$id <- 0L
   pars$last_rel_id <- sheet$relationship()$get_next_id() - 1
-  pars$raster_prefix <- img_directory
   pars$standalone <- TRUE
   pars$width <- width
   pars$height <- height
@@ -60,10 +53,21 @@ xl_add_vg <- function(x, sheet, code, left, top, width, height, ...) {
   do.call("dml_xlsx", pars)
 
   tryCatch(code, finally = dev.off())
-  raster_files <- list_raster_files(img_dir = img_directory)
+
+  # extract raster_prefix from XML comment written by xlsx_close()
+  xml_raw <- paste0(readLines(dml_file, warn = FALSE), collapse = "")
+  m <- regmatches(xml_raw, regexpr("<!-- rvg_raster_prefix:(.+?) -->", xml_raw, perl = TRUE))
+  raster_files <- character(0)
+  if (length(m) == 1L) {
+    raster_prefix <- sub("<!-- rvg_raster_prefix:(.+?) -->", "\\1", m, perl = TRUE)
+    raster_files <- list_raster_files(img_dir = raster_prefix)
+  }
+
   rel <- sheet$relationship()
 
   if (length(raster_files)) {
+    media_dir <- file.path(x$package_dir, "xl/media")
+    file.copy(raster_files, media_dir)
     rid <- paste0("rId", seq_along(raster_files))
     target <- paste0("../media/", basename(raster_files))
     rel_file <- file.path(
