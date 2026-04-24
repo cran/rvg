@@ -1,14 +1,15 @@
-e0da355724cacf0ae8eb79fd1690883d *DESCRIPTION
-efa117fd3d9ab0a3fb34cc441862821b *NAMESPACE
-0347245b47ff133d4b10aadbc24d7da6 *NEWS.md
+9046e23dd317a289bb58925e94981168 *DESCRIPTION
+09c039f723832d5316b3a87f45196f0a *NAMESPACE
+caf9392bcc3458e841aa6da6d6268e75 *NEWS.md
 99963995cc4d826f775ecc8f58dd1739 *R/RcppExports.R
 e0bae6ede5345810244c34135dcea025 *R/defunct.R
 8f2ec4a2ae3111c611c10b2df293e111 *R/dml_pptx.R
 7611aefc244f76d9b85327d7c0a2c6cc *R/dml_xlsx.R
 61ddebbdbfc6cb433c40cd231df5289c *R/fonts.R
 bf04b04b5c5267c028f8174c24907b1d *R/ph_with_vg.R
-2700ff2823ccb678d66b9d92d5def6be *R/xl_add_vg.R
-4ff568439cb660c94c25c996ffe54b87 *README.md
+295b1be4df9fd52266e37b191dc927b4 *R/sheet_add_drawing_dml.R
+2f178c8b883b58935500b955c24894db *R/xl_add_vg.R
+80a033dd62029e8cc8fc494e2599a9e0 *README.md
 1e6046254675020e1076ccc73943f020 *inst/logo.svg
 8e412f3387e8aabb02c85cfff7dae17a *inst/test-rvg.R
 b19fda979b55c1798a1a697285d404b4 *man/body_add_vg.Rd
@@ -16,7 +17,8 @@ e095d62fbe073af9afe3a4fca136792f *man/dml.Rd
 d9c0d67677874a20207e5829d901c451 *man/dml_pptx.Rd
 163c458ee026ec51defcec12e9dd0f45 *man/dml_xlsx.Rd
 07604e2e69cc571b55e686f2ebedc0a8 *man/ph_with.dml.Rd
-cd74dae2fffd3d543cb71cdefd613ae5 *man/xl_add_vg.Rd
+5e3c1c30f1ee87ad2b76e24687549ca0 *man/sheet_add_drawing.dml.Rd
+ff8356e04e076d8b94711d45ed2070fa *man/xl_add_vg.Rd
 5f05efe55b70273f72fc1174e7da90c4 *src/Makevars
 f4590e6223ac79ec631f7cb35303f882 *src/Makevars.ucrt
 aaf23318566b8c32e2111686d09c8f12 *src/Makevars.win
@@ -34,7 +36,7 @@ a015f112c8b73ee86ad864deadbcc071 *src/line_style.h
 4f9772a20d8e54bfd9ea261276239a83 *src/ooxml_dev.h
 ab2e2dbb54f1a3c791bdb3b1e1f8ffbb *src/ppr.cpp
 17c0028a5f05dcd14d5bb7f5cc98551e *src/ppr.h
-53162fb4e158b866f5b4571a7dd5281d *src/pptx.cpp
+e38ba1aff03f0c0c720880760093fdeb *src/pptx.cpp
 45cd05c40b2a54c0f1eb5285f86f3d7e *src/raster.cpp
 e083baf59d1602cefe8aedd4261d4e63 *src/raster.h
 44c9f12ac17a3cc6a67d1ea901edc2f6 *src/rpr.cpp
@@ -47,7 +49,7 @@ aaf96a255e3eb7e0a62292b8f06965bd *src/write_nv_pr.cpp
 fdfedf46edbc7f7f79d649f0a27b6d76 *src/write_nv_pr.h
 1e3d4f524b28cccc41c27583ca5214c7 *src/xfrm.cpp
 9dd346a282f50f5f4c1d9c977a4d9c3b *src/xfrm.h
-ea39780a5a5d1a63538521bf36872e57 *src/xlsx.cpp
+aee8841eb33ce409744b400f1c6b2885 *src/xlsx.cpp
 37cf05e5ac415da06bb7d39b8b44d1dd *tests/testthat.R
 9d486214830ada87dc88f210065b73a8 *tests/testthat/test-bg.R
 632922b73ffc67ed1ba4cf15a7ae0d1d *tests/testthat/test-dml-editable.R
@@ -57,7 +59,7 @@ ea39780a5a5d1a63538521bf36872e57 *src/xlsx.cpp
 85370cc8546e1649e15da2977e688fa1 *tests/testthat/test-pptx-text.R
 3f0d77a0e270e1bf7aa8b5a2efbc3982 *tests/testthat/test-pptx-xfrm.R
 ba8021d85fd0ae6b9ddc79695ac87655 *tests/testthat/test-xlsx-lines.R
-3794dcd493457f31fef0d16d36c69738 *tests/testthat/test-xlsx-raster.R
+448c800522092237859dd5a60545ade1 *tests/testthat/test-xlsx-raster.R
 8606bf65f295d7fe74f1a4f71b743306 *tests/testthat/test-xlsx-text.R
 b81a26360b7840f080a7da5484bc630d *tests/testthat/test-xlsx-xfrm.R
 25ee4943e53b02c4d8bb6a043e9da7b8 *tools/winlibs.R
